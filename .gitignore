@@ -127,3 +127,5 @@ certs/
 # Local settings
 update-app.ps1
 push-to-server.ps1
+
+vsms.code-workspace
