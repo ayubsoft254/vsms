@@ -46,14 +46,18 @@ INSTALLED_APPS = [
     'tenants',
     'helpers',
     'visits',
-    
 
 
-    #3rd party apps
+
+    # third-party-apps
+    "allauth_ui",
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'allauth.socialaccount.providers.github',
     'django_hosts',
+    'slippers',
+    "widget_tweaks",
     
 ]
 
