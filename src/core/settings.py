@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     #my apps
     'commando',
     'vehicles',
+    'tenants',
+    'helpers',
 ]
 
 MIDDLEWARE = [
