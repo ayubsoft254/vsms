@@ -45,11 +45,15 @@ INSTALLED_APPS = [
     'vehicles',
     'tenants',
     'helpers',
+    'visits',
+    
+
 
     #3rd party apps
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'django_hosts',
     
 ]
 
