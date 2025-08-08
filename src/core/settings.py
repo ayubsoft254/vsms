@@ -13,6 +13,10 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 from decouple import config
 import dj_database_url
+from .installed import (
+    _CUSTOMER_INSTALLED_APPS,
+    _INSTALLED_APPS
+)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -32,34 +36,8 @@ ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="").split(",")
 
 # Application definition
 
-INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-
-    #my apps
-    'commando',
-    'vehicles',
-    'tenants',
-    'helpers',
-    'visits',
-
-
-
-    # third-party-apps
-    "allauth_ui",
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.github',
-    'django_hosts',
-    'slippers',
-    "widget_tweaks",
-    
-]
+INSTALLED_APPS = INSTALLED_APPS = _INSTALLED_APPS
+CUSTOMER_INSTALLED_APPS = _CUSTOMER_INSTALLED_APPS
 
 MIDDLEWARE = [
     "django_hosts.middleware.HostsRequestMiddleware",
@@ -76,7 +54,12 @@ MIDDLEWARE = [
     "django_hosts.middleware.HostsResponseMiddleware",
 ]
 
-ROOT_URLCONF = 'core.urls'
+DEFAULT_HOST = "www"
+PARENT_HOST = "localhost:8000"
+ROOT_HOSTCONF = "core.hosts"
+ROOT_URLCONF = "core.urls"
+ENTERPRISES_URLCONF = "enterprises.urls"
+# ROOT_URLCONF = ENTERPRISES_URLCONF
 
 TEMPLATES = [
     {
@@ -161,3 +144,16 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REDIS_CACHE_URL = config("REDIS_CACHE_URL", default=None)
+
+if REDIS_CACHE_URL is not None:
+    CACHES = {
+        "default": {
+            "BACKEND": "django_redis.cache.RedisCache",
+            "LOCATION": REDIS_CACHE_URL,
+            "OPTIONS": {
+                "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            }
+        }
+    }
