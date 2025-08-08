@@ -45,6 +45,12 @@ INSTALLED_APPS = [
     'vehicles',
     'tenants',
     'helpers',
+
+    #3rd party apps
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    
 ]
 
 MIDDLEWARE = [
